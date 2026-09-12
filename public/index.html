@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coverage Desk</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div>
+      <span class="brand">Coverage Desk</span>
+      <span class="brand-sub"> — git-native equity research</span>
+    </div>
+    <nav id="view-nav">
+      <button data-view="coverage" class="active">Coverage</button>
+      <button data-view="mandate">Mandate</button>
+    </nav>
+    <div class="spacer"></div>
+    <div class="harness-badge"><span class="dot"></span> gitagent workspace live</div>
+  </div>
+
+  <div class="layout" id="layout">
+    <!-- filled by app.js -->
+  </div>
+</div>
+
+<div class="toast-stack" id="toasts"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

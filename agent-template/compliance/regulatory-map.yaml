@@ -1,0 +1,23 @@
+mappings:
+  - capability: trade_recommendation
+    rules:
+      - id: finra-2210
+        name: Communications with the Public
+        controls:
+          - fair_balanced_check
+          - no_misleading_check
+          - principal_pre_review
+      - id: finra-2111
+        name: Suitability
+        controls:
+          - not_personalized_disclosure
+      - id: finra-3110
+        name: Supervision
+        controls:
+          - human_approval_required_before_record
+          - escalation_on_low_confidence
+      - id: finra-4511
+        name: Books and Records
+        controls:
+          - immutable_git_history
+          - no_history_rewrite

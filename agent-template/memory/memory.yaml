@@ -1,0 +1,21 @@
+layers:
+  - name: index
+    path: MEMORY.md
+    max_lines: 200
+    format: markdown
+  - name: coverage
+    path: coverage/
+    format: markdown
+  - name: log
+    path: log.md
+    format: markdown
+
+update_triggers:
+  - on_draft
+  - on_approval
+  - on_rejection
+  - on_revert
+
+archive_policy:
+  max_entries: 5000
+  retention_period: 6y

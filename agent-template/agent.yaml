@@ -1,0 +1,82 @@
+spec_version: "0.1.0"
+name: coverage-desk
+version: 1.0.0
+description: Git-native equity research agent that drafts and maintains stock coverage as versioned memory, under human sign-off
+author: coverage-desk
+license: MIT
+model:
+  preferred: claude-sonnet-4-5-20250929
+  fallback:
+    - claude-haiku-4-5-20251001
+  constraints:
+    temperature: 0.2
+    max_tokens: 4096
+skills:
+  - research-ticker
+  - draft-thesis
+  - mandate-check
+tools:
+  - fetch-quote
+runtime:
+  max_turns: 30
+  timeout: 120
+compliance:
+  risk_tier: high
+  frameworks:
+    - finra
+    - sec
+  supervision:
+    designated_supervisor: lead-analyst
+    review_cadence: weekly
+    human_in_the_loop: always
+    escalation_triggers:
+      - confidence_below: 0.6
+      - action_type: rating_change
+      - error_detected: true
+    override_capability: true
+    kill_switch: true
+  recordkeeping:
+    audit_logging: true
+    log_format: structured_json
+    retention_period: 6y
+    log_contents:
+      - prompts_and_responses
+      - tool_calls
+      - decision_pathways
+      - timestamps
+    immutable: true
+  communications:
+    type: correspondence
+    pre_review_required: true
+    fair_balanced: true
+    no_misleading: true
+    disclosures_required: true
+  segregation_of_duties:
+    roles:
+      - id: maker
+        description: Drafts and revises coverage theses from research
+        permissions: [create, submit]
+      - id: checker
+        description: Reviews and approves or rejects proposed coverage before it becomes the record
+        permissions: [review, approve, reject]
+    conflicts:
+      - [maker, checker]
+    assignments:
+      coverage-desk: [maker]
+      lead-analyst: [checker]
+    isolation:
+      state: full
+      credentials: separate
+    handoffs:
+      - action: rating_change
+        required_roles: [maker, checker]
+        approval_required: true
+    enforcement: strict
+tags:
+  - finance
+  - equity-research
+  - workbench
+  - human-in-the-loop
+metadata:
+  domain: equity-research
+  interface: workbench

@@ -1,0 +1,11 @@
+schedule:
+  - type: supervisory_review
+    cadence: weekly
+    last_completed: null
+    owner: lead-analyst
+    finra_rules: [3110]
+  - type: communications_review
+    cadence: monthly
+    last_completed: null
+    owner: lead-analyst
+    finra_rules: [2210]

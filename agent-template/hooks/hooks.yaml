@@ -1,0 +1,12 @@
+hooks:
+  pre_response:
+    - script: scripts/mandate-check.js
+      description: Block a coverage revision from being presented as ready for review if it fails RULES.md checks
+      compliance: true
+  post_response:
+    - script: scripts/log-operation.js
+      description: Append a draft entry to memory/log.md once a revision has passed the mandate check
+  on_error:
+    - script: scripts/log-operation.js
+      description: Log a failed research or draft attempt (e.g. fetch-quote failure, out-of-mandate ticker) for later review
+      compliance: true

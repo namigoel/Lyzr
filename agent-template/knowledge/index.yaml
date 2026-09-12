@@ -1,0 +1,16 @@
+documents:
+  - path: universe.md
+    tags: [mandate, universe, market-cap]
+    priority: high
+    always_load: true
+    description: "The covered-ticker universe: sector, market-cap tier, and mandate eligibility for every ticker the desk tracks."
+  - path: sectors.md
+    tags: [sector, valuation, reference]
+    priority: high
+    always_load: true
+    description: "Sector norms used as valuation context when drafting a thesis."
+  - path: disclosures.md
+    tags: [compliance, disclosure]
+    priority: medium
+    always_load: false
+    description: "Standard disclosure language required on every published thesis."

@@ -1,0 +1,52 @@
+name: recommendation-review
+description: The maker-to-checker pipeline for a single coverage revision
+version: 1.0.0
+inputs:
+  - name: ticker
+    type: string
+    required: true
+steps:
+  - id: research
+    action: Gather live quote and prior thesis history for the ticker
+    skill: research-ticker
+    outputs: [signal, confidence, mandate_eligible]
+
+  - id: decline_out_of_mandate
+    action: Report the ticker as out of mandate and stop
+    depends_on: [research]
+    conditions:
+      - ${{ steps.research.outputs.mandate_eligible == false }}
+
+  - id: draft
+    action: Write or revise the coverage file on a review branch
+    depends_on: [research]
+    skill: draft-thesis
+    conditions:
+      - ${{ steps.research.outputs.mandate_eligible == true }}
+    outputs: [branch, draft_path]
+
+  - id: mandate_check
+    action: Validate the draft against RULES.md before it can be shown to the analyst
+    depends_on: [draft]
+    skill: mandate-check
+    outputs: [checks, blocked]
+
+  - id: revise_if_blocked
+    action: Revise the draft to address failing checks and re-run mandate_check
+    depends_on: [mandate_check]
+    skill: draft-thesis
+    conditions:
+      - ${{ steps.mandate_check.outputs.blocked == true }}
+
+  - id: human_review
+    action: Present the diff against main, the mandate-check result, and the data trace to the lead analyst
+    depends_on: [mandate_check]
+    conditions:
+      - ${{ steps.mandate_check.outputs.blocked == false }}
+    # Terminal step for the agent. Approve / edit-then-approve / reject
+    # are human actions taken in the workbench, not agent steps —
+    # see DUTIES.md. This workflow never merges to main itself.
+
+error_handling:
+  on_failure: log_and_stop
+  log_path: memory/log.md

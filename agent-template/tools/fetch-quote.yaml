@@ -1,0 +1,34 @@
+name: fetch-quote
+description: Fetch a current or recent-window quote for a ticker from a public market-data source. Read-only, no keys required.
+version: 1.0.0
+input_schema:
+  type: object
+  properties:
+    ticker:
+      type: string
+      description: Exchange ticker symbol, e.g. NVDA
+    lookback_days:
+      type: integer
+      description: Number of trailing calendar days to compute change over
+      default: 30
+  required: [ticker]
+output_schema:
+  type: object
+  properties:
+    ticker: { type: string }
+    price: { type: number }
+    change_pct: { type: number, description: "Percent change over lookback_days" }
+    range_low: { type: number }
+    range_high: { type: number }
+    as_of: { type: string, format: date-time }
+    source: { type: string }
+    unavailable: { type: boolean, description: "true if the fetch failed; other numeric fields should be ignored" }
+implementation:
+  type: script
+  path: ../server/lib/tools.js
+  runtime: node
+  timeout: 10
+annotations:
+  requires_confirmation: false
+  read_only: true
+  cost: low
