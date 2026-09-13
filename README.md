@@ -2,8 +2,7 @@
 
 A git-native equity-research workbench built on [GitAgent / OpenGAP](https://github.com/open-gitagent/gitagent). A research agent drafts stock coverage; a human analyst reviews, edits, approves, rejects, or rolls it back — and every one of those actions is a real git commit, branch, merge, or revert on a live gitagent repository, not a database row.
 
-Built for the Lyzr Founder's Office build assignment. See [WRITEUP.md](WRITEUP.md) for what this is, who it's for, the decisions behind it, and what's left broken on purpose. See [DEMO_SCRIPT.md](DEMO_SCRIPT.md) for a ~90-second recorded-walkthrough script.
-
+Built for the Lyzr Founder's Office build assignment. See [WRITEUP.md](WRITEUP.md) for what this is, who it's for, the decisions behind it, and what's left broken on purpose.
 ## Setup
 
 **Requires:** Node.js 18 or later (`node -v` to check), npm. No API keys, no accounts, no external services to configure.
