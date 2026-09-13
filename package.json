@@ -1,0 +1,21 @@
+{
+  "name": "coverage-desk",
+  "version": "1.0.0",
+  "description": "Git-native equity research workbench built on GitAgent (OpenGAP)",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "seed": "node seed/seed.js",
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "validate": "node -e \"require('./server/lib/opengap').validate().then(r=>console.log(r.output))\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "gray-matter": "^4.0.3",
+    "simple-git": "^3.25.0"
+  },
+  "optionalDependencies": {
+    "@open-gitagent/opengap": "^0.5.0"
+  }
+}
